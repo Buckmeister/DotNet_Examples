@@ -1,0 +1,100 @@
+﻿<Window x:Class="RegExecutionerWPF.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RegExecutionerWPF"
+        mc:Ignorable="d"
+        Title="" MinHeight="400" MinWidth="600" SizeToContent="WidthAndHeight" MaxHeight="1000" MaxWidth="1200">
+	<StackPanel>
+		<TextBlock Margin="10,0,0,0" FontSize="24" FontWeight="Bold">RegExecutioner</TextBlock>
+		<Grid Margin="10">
+			<TabControl>
+				<TabItem  Header="Match" DataContext="{Binding Children[0]}">
+					<Grid Margin="5">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+
+						<Label Grid.Column="0" Grid.Row="0" Content="Input String:"/>
+						<TextBox Grid.Column="1" 
+								 Grid.Row="0"
+								 VerticalContentAlignment="Center"
+								 Text="{Binding InputMatch, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+						<Label Grid.Column="0" Grid.Row="1" Content="Regex Pattern:"/>
+						<TextBox Grid.Column="1" 
+								 Grid.Row="1"
+								 VerticalContentAlignment="Center"
+								 Text="{Binding RegexMatchPattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+						
+						<Label Grid.Column="0" Grid.Row="2" Content="Output:" Margin="0,10,0,0"/>
+						<TextBox Grid.ColumnSpan="2"
+								 Grid.Row="3"
+								 Padding="10"
+								 MinHeight="200"
+								 Background="WhiteSmoke"
+								 IsReadOnly="True"
+								 VerticalContentAlignment="Center"
+								 HorizontalContentAlignment="Center"
+								 FontSize="20"
+								 Text="{Binding OutputMatch, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>			
+					</Grid>
+				</TabItem>
+				<TabItem Header="Replace" DataContext="{Binding Children[1]}">
+					<Grid Margin="5">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto"/>
+							<ColumnDefinition Width="*"/>
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="*"/>
+						</Grid.RowDefinitions>
+
+						<Label Grid.Column="0" Grid.Row="0" Content="Input String:"/>
+						<TextBox Grid.Column="1" 
+								 Grid.Row="0"
+								 VerticalContentAlignment="Center"
+								 Text="{Binding InputReplace, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+						<Label Grid.Column="0" Grid.Row="1" Content="Regex Pattern:"/>
+						<TextBox Grid.Column="1" 
+								 Grid.Row="1"
+								 VerticalContentAlignment="Center"
+								 Text="{Binding RegexReplacePattern, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+						<Label Grid.Column="0" Grid.Row="2" Content="Regex Replace:"/>
+						<TextBox Grid.Column="1" 
+								 Grid.Row="2"
+								 VerticalContentAlignment="Center"
+								 Text="{Binding RegexReplaceWith, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+						<Label Grid.Column="0" Grid.Row="3" Content="Output:" Margin="0,10,0,0"/>
+						<TextBox Grid.ColumnSpan="2"
+								 Grid.Row="4"
+								 Padding="10"
+								 MinHeight="174"
+								 Background="WhiteSmoke"
+								 IsReadOnly="True"
+								 VerticalContentAlignment="Center"
+								 HorizontalContentAlignment="Center"
+								 FontSize="20"
+								 Text="{Binding OutputReplace, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True}"/>		
+					</Grid>
+				</TabItem>
+			</TabControl>
+		</Grid>
+		<TextBlock Margin="0,0,15,10" HorizontalAlignment="Right" FontWeight="Bold" Text="{Binding AppVersion}"></TextBlock>
+	</StackPanel>
+</Window>

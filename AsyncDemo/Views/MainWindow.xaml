@@ -1,0 +1,220 @@
+﻿<Window x:Class="AsyncDemo.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AsyncDemo"
+        xmlns:cnv="clr-namespace:AsyncDemo.Converters"
+        mc:Ignorable="d"
+        Title="Async Demo" 
+        Height="600" Width="800" 
+        MinHeight="600" MinWidth="800"
+        Background="DarkGray">
+
+    <Window.Resources>
+        <cnv:FirstColumnConverter x:Key="FirstColumnConverter"/>
+        <cnv:NumberOfRowsConverter x:Key="NumberOfRowsConverter"/>
+        <cnv:ValueToColorConverter x:Key="ValueToColorConverter"/>
+
+        <Style x:Key="HeaderCell" TargetType="Border">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="DarkGray" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
+
+        <Style x:Key="HeaderText" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="ContentCell" TargetType="Border">
+            <Setter Property="Background" Value="WhiteSmoke" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="DarkGray" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="2" />
+        </Style>
+
+        <Style x:Key="CellLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="10" />
+            <Setter Property="FontWeight" Value="DemiBold" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="Margin" Value="0,0,2,0" />
+        </Style>
+
+        <Style x:Key="CellValue" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </Window.Resources>
+    
+    <Grid Margin="10" >
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock HorizontalAlignment="Center" 
+                   FontSize="24" 
+                   FontWeight="Bold"
+                   Margin="5"
+                   Text="{Binding CurrentMonth, UpdateSourceTrigger=PropertyChanged, StringFormat='MMMM yyyy'}" />
+
+        <StackPanel Grid.Row="1" 
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <ProgressBar Width="600"
+                         Height="20"
+                         Minimum="0" Maximum="100"
+                         Opacity="1" 
+                         Foreground="ForestGreen"
+                         BorderBrush="White"
+                         BorderThickness="2"
+                         Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"
+                         Value="{Binding ProgressIndicator, UpdateSourceTrigger=PropertyChanged}" />
+                     
+
+            <Button Content="A_bbrechen" 
+                    HorizontalAlignment="Center" 
+                    MinWidth="100"
+                    MinHeight="25"
+                    Margin="3"
+                    IsCancel="True"
+                    FontFamily="Arial"
+                    FontWeight="DemiBold" 
+                    Background="White"
+                    Visibility="{Binding IsBusy, Converter={StaticResource BoolToVis}}"
+                    Command="{Binding CancelCommand}" />
+
+        </StackPanel>
+        
+        <Border Grid.Row="1" BorderBrush="White" BorderThickness="1">
+            
+            <Grid Margin="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="3"/>
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="1" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Montag" Style="{StaticResource HeaderText}"/>
+                </Border>
+                <Border Grid.Column="2" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Dienstag" Style="{StaticResource HeaderText}"/>
+                </Border>
+                <Border Grid.Column="3" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Mittwoch" Style="{StaticResource HeaderText}"/>
+                </Border>
+                <Border Grid.Column="4" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Donnerstag" Style="{StaticResource HeaderText}"/>
+                </Border>
+                <Border Grid.Column="5" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Freitag" Style="{StaticResource HeaderText}"/>
+                </Border>
+                <Border Grid.Column="6" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Samstag" Style="{StaticResource HeaderText}"/>
+                </Border>
+                <Border Grid.Column="7" Style="{StaticResource HeaderCell}">
+                    <TextBlock  Text="Sonntag" Style="{StaticResource HeaderText}" />
+                </Border>
+
+                <ItemsControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="7" ItemsSource="{Binding Days}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Columns="7" 
+                                 Rows="{Binding Days[0], UpdateSourceTrigger=PropertyChanged, Converter={StaticResource NumberOfRowsConverter}}" 
+                                 FirstColumn="{Binding Days[0], UpdateSourceTrigger=PropertyChanged, Converter={StaticResource FirstColumnConverter}}"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Style="{StaticResource ContentCell}">
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DayOfMonth, UpdateSourceTrigger=PropertyChanged}" 
+                                       Style="{StaticResource CellLabel}" />
+                                    <TextBlock Text="{Binding Value, StringFormat='{}{0:c}', UpdateSourceTrigger=PropertyChanged}" 
+                                       Style="{StaticResource CellValue}" />
+                                    <Border>
+                                        <Border.Style>
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource ValueToColorConverter}}" 
+                                                         Value="OrangeRed">
+                                                        <Setter Property="Background" Value="OrangeRed"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource ValueToColorConverter}}" 
+                                                         Value="Orange">
+                                                        <Setter Property="Background" Value="Orange"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource ValueToColorConverter}}" 
+                                                         Value="ForestGreen">
+                                                        <Setter Property="Background" Value="ForestGreen"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Value, Converter={StaticResource ValueToColorConverter}}" 
+                                                         Value="DarkGray">
+                                                        <Setter Property="Background" Value="DarkGray"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                                                <Setter Property="VerticalAlignment" Value="Bottom" />
+                                                <Setter Property="Height" Value="10" />
+                                                <Setter Property="Margin" Value="3,5,3,0" />
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <DockPanel Grid.Row="2" Grid.ColumnSpan="9" HorizontalAlignment="Center">
+                    
+                    <Button FontFamily="Arial" 
+                            FontWeight="DemiBold" 
+                            Content="_Zurück" 
+                            MinWidth="100" 
+                            Margin="3,3,3,5" 
+                            Background="White"
+                            Command="{Binding PreviousCommand}"/>
+                    <Button FontFamily="Arial" 
+                            FontWeight="DemiBold" 
+                            Content="_Vor" 
+                            MinWidth="100" 
+                            Margin="3,3,3,5" 
+                            Background="White"
+                            Command="{Binding NextCommand}"/>
+                    
+                </DockPanel>
+
+            </Grid>
+            
+        </Border>
+        
+    </Grid>
+    
+</Window>

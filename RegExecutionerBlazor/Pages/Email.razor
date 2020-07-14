@@ -1,0 +1,43 @@
+﻿@page "/email"
+@inject EmailViewModel viewModel
+
+    <div class="container">
+        <h2>Regex Email Adress Validation</h2>
+
+        <div class="form-group">
+            <label for="input" class="font-weight-bold">Input:</label>
+            <input id="input"
+                   class="form-control"
+                   type="text"
+                   @bind-value="viewModel.InputEmail" @bind-value:event="oninput" />
+        </div>
+
+        <label class="font-weight-bold">Pattern:</label>
+        <div class="card card-body bg-light text-monospace">
+            @viewModel.PatternEmail
+        </div>
+
+        <p></p>
+        <label class="font-weight-bold">Output:</label>
+        <div class="card card-body bg-light">
+            <h4>
+
+                <ViewModelRegion ViewModel="@viewModel">
+                    @if (viewModel.IsValidEmail)
+                    {
+                        <span class="oi oi-check text-success" aria-hidden="true"></span>
+                    }
+                    else
+                    {
+                        <span class="oi oi-circle-x text-danger" aria-hidden="true"></span>
+                    }
+                    @(" " + viewModel.OutputEmail)
+                </ViewModelRegion>
+            </h4>
+        </div>
+        <br />
+    </div>
+
+@code {
+    
+}

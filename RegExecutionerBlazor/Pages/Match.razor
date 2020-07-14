@@ -1,0 +1,37 @@
+﻿@page "/match"
+@inject MatchViewModel viewModel
+
+<div class="container">
+    <h2>Regex Match</h2>
+
+    <div class="form-group">
+        <label for="input" class="font-weight-bold">Input:</label>
+        <input id="input"
+                class="form-control"
+                type="text"
+                @bind-value="viewModel.InputMatch"
+                @bind-value:event="oninput" />
+    </div>
+    <div class="form-group">
+        <label for="pattern" class="font-weight-bold">Pattern:</label>
+        <input id="pattern"
+                class="form-control"
+                type="text"
+                @bind-value="viewModel.RegexMatchPattern"
+                @bind-value:event="oninput" />
+    </div>
+    <p></p>
+    <label class="font-weight-bold">Output:</label>
+
+    <div class="card card-body bg-light">
+        @foreach (string match in (viewModel.OutputMatch).Split('\n'))
+        {
+            <h4>@match</h4>
+        }
+    </div>
+    <br />
+</div>
+
+@code {
+    
+}

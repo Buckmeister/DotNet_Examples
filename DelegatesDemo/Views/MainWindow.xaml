@@ -1,0 +1,148 @@
+﻿<Window x:Class="DelegatesDemo.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DelegatesDemo"
+        xmlns:hlp="clr-namespace:DelegatesDemo.Helpers"
+        mc:Ignorable="d"
+        Title="Delegates Demo" Height="450" Width="800" MinHeight="450" MinWidth="800">
+    <TabControl Margin="5">
+
+        <TabItem Header="Zahlen" Width="100" DataContext="{Binding TabViewModels[0]}">
+            <Grid Margin="10">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel>
+                    <Label Content="Text:"/>
+                    <TextBox Height="25" 
+                     HorizontalContentAlignment="Center" 
+                     VerticalContentAlignment="Center"
+                     Text="{Binding InputString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+
+                <DockPanel Grid.Row="1" HorizontalAlignment="Center">
+
+                    <ComboBox Margin="5" 
+                              DisplayMemberPath="DisplayName" 
+                              SelectedValuePath="Name" 
+                              SelectedValue="{Binding CurrentFormat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                              ItemsSource="{Binding FormatEntries, UpdateSourceTrigger=PropertyChanged}"/>
+                </DockPanel>
+                
+                <TextBox Grid.Row="3"
+                 Grid.Column="0"
+                 Background="LightGray"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+                 FontFamily="Courier New"
+                 FontSize="18"
+                 TextWrapping="Wrap"
+                 BorderBrush="DarkGray"
+                 BorderThickness="1"
+                 Text="{Binding TextOutput, UpdateSourceTrigger=PropertyChanged}"/>
+                
+            </Grid>
+        </TabItem>
+
+        <TabItem Header="Html" Width="100" DataContext="{Binding TabViewModels[1]}">
+            <Grid Margin="10">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="5"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.ColumnSpan="3">
+                    <Label Content="Text:"/>
+                    <TextBox Height="25" 
+                     HorizontalContentAlignment="Center" 
+                     VerticalContentAlignment="Center"
+                     Text="{Binding InputString, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </DockPanel>
+
+                <DockPanel Grid.Row="1" Grid.ColumnSpan="3" HorizontalAlignment="Center">
+
+                    <CheckBox Content="Fett" 
+                      Margin="5"
+                      IsChecked="{Binding Bold, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                    <CheckBox Content="Kursiv" 
+                      Margin="5"
+                      IsChecked="{Binding Italic, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                    <CheckBox Content="Unterstichen" 
+                      Margin="5"
+                      IsChecked="{Binding Underlined, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+
+                    <CheckBox Content="Rot" 
+                      Margin="5"
+                      IsChecked="{Binding Red, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+
+                </DockPanel>
+
+                <Label Grid.Row="2" 
+               Grid.Column="0" 
+               Content="Text Ansicht" 
+               HorizontalAlignment="Center"/>
+
+                <TextBox Grid.Row="3"
+                 Grid.Column="0"
+                 Background="LightGray"
+                 HorizontalAlignment="Stretch"
+                 VerticalAlignment="Stretch"
+                 HorizontalContentAlignment="Center"
+                 VerticalContentAlignment="Center"
+                 IsReadOnly="True"
+                 FontFamily="Courier New"
+                 FontSize="18"
+                 TextWrapping="Wrap"
+                 BorderBrush="DarkGray"
+                 BorderThickness="1"
+                 Text="{Binding TextContent, UpdateSourceTrigger=PropertyChanged}"/>
+
+                <GridSplitter Grid.Row="3" 
+                      Grid.Column="1" 
+                      Width="5" 
+                      HorizontalAlignment="Stretch"/>
+
+                <Label Grid.Row="2" 
+               Grid.Column="2" 
+               Content="HTML Ansicht" 
+               HorizontalAlignment="Center"/>
+
+                <Border Grid.Row="3" 
+                Grid.Column="2" 
+                BorderBrush="DarkGray"
+                BorderThickness="1"
+                Padding="1">
+
+                    <WebBrowser Grid.Row="3" 
+                    Grid.Column="2" 
+                    HorizontalAlignment="Stretch" 
+                    VerticalAlignment="Stretch" 
+                    hlp:WebBrowserHelper.Body="{Binding HtmlContent, UpdateSourceTrigger=PropertyChanged}"/>
+                </Border>
+
+            </Grid>
+        </TabItem>
+    </TabControl>
+    
+</Window>

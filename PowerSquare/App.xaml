@@ -1,0 +1,35 @@
+﻿<Application x:Uid="Application_1" x:Class="PowerSquare.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:PowerSquare" 
+			 xmlns:system="clr-namespace:System;assembly=mscorlib"
+			 xml:lang="en-US"
+             StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+		<ResourceDictionary x:Uid="ResourceDictionary_1">
+			<system:String x:Uid="OperationMode_1" x:Key="OperationMode_1">SQRT</system:String>
+			<system:String x:Uid="OperationMode_2" x:Key="OperationMode_2">PWR2</system:String>
+			<system:String x:Uid="OperationMode_3" x:Key="OperationMode_3">PWR3</system:String>
+			<system:String x:Uid="OperationModeDisplay_1" x:Key="OperationModeDisplay_1">Square Root</system:String>
+			<system:String x:Uid="OperationModeDisplay_2" x:Key="OperationModeDisplay_2">Power of 2</system:String>
+			<system:String x:Uid="OperationModeDisplay_3" x:Key="OperationModeDisplay_3">Power of 3</system:String>
+			<system:String x:Uid="ValidationError_1" x:Key="ValidationError_1_Poitive_Integer">Only positive integer values allowed.</system:String>
+			<system:String x:Uid="Result_1" x:Key="Result_1_Input_Error">Input Error.</system:String>
+			<system:String x:Uid="Status_1" x:Key="Status_1_Ready">Ready</system:String>
+			<system:String x:Uid="Status_2" x:Key="Status_2_Error">Error</system:String>
+			<system:String x:Uid="Status_3" x:Key="Status_3_Cleared">Cleared</system:String>
+			<system:String x:Uid="Language_1" x:Key="Language_1">en-US</system:String>
+			<system:String x:Uid="Language_2" x:Key="Language_2">de-DE</system:String>
+			<system:String x:Uid="LanguageDisplay_1" x:Key="LanguageDisplay_1">English</system:String>
+			<system:String x:Uid="LanguageDisplay_2" x:Key="LanguageDisplay_2">German</system:String>
+			<system:String x:Uid="Formula_0" x:Key="Formula_0_NA">Not Implemented - Number:{0}, Operation:{1}</system:String>
+			<system:String x:Uid="Formula_1" x:Key="Formula_1_SQRT">Square root of {0} equals {1}</system:String>
+			<system:String x:Uid="Formula_2" x:Key="Formula_2_PWR2">{0} to the power of 2 equals {1}</system:String>
+			<system:String x:Uid="Formula_3" x:Key="Formula_3_PWR3">{0} to the power of 3 equals {1}</system:String>
+			<system:String x:Uid="Formula_9" x:Key="Formula">Formula</system:String>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary x:Uid="ResourceDictionary_3" Source="/Resources.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+</Application>
